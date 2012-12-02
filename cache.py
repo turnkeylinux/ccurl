@@ -71,3 +71,14 @@ class Cache:
 
         return cached_path
 
+    def delete(self, url):
+        """Delete <url> from cache"""
+        cached_path = self._get_cache_path(url)
+
+        if not os.path.exists(cached_path):
+            self._warn("file does not exist in cache")
+            return False
+
+        os.remove(cached_path)
+        return True
+

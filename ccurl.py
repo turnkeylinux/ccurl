@@ -51,7 +51,7 @@ def add(src, url):
     """Add file from <src> to the cache using <url> for future retrieval"""
     url = urllib.unquote(url)
     if url.endswith("/"):
-        raise Error("illegal url - can't get a directory")
+        raise Error("illegal url - can't add a directory")
 
     if not os.path.exists(src):
         raise Error("no such file: " + src)
@@ -59,5 +59,19 @@ def add(src, url):
     print "* add: storing file in cache..."
     cache = Cache()
     cached_path = cache.store(url, src)
+
     return cached_path
+
+def delete(url):
+    """Delete <url> from cache"""
+    url = urllib.unquote(url)
+    if url.endswith("/"):
+        raise Error("illegal url - can't delete a directory")
+
+    print "* del: removing file from cache..."
+    cache = Cache()
+    result = cache.delete(url)
+
+    return result
+
 

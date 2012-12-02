@@ -10,11 +10,10 @@
 # option) any later version.
 #
 """
-Add file from path to cache using url for future retrieval
+Remove file from cache using url
 
 Arguments:
 
-    path            Path to source file
     url             URL of the file's origin
 
 Environment:
@@ -35,7 +34,7 @@ def usage(e=None):
     if e:
         print >> sys.stderr, "error: " + str(e)
 
-    print >> sys.stderr, "Syntax: %s <path> <url>" % sys.argv[0]
+    print >> sys.stderr, "Syntax: %s <url>" % sys.argv[0]
     print >> sys.stderr, __doc__.strip()
     sys.exit(1)
 
@@ -49,14 +48,13 @@ def main():
         if opt in ('-h', '--help'):
             usage()
 
-    if len(args) < 2:
+    if len(args) < 1:
         usage()
 
-    src = args[0]
-    url = args[1]
+    url = args[0]
 
     try:
-        ccurl.add(src, url)
+        ccurl.delete(url)
     except ccurl.Error, e:
         fatal(e)
 
